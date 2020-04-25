@@ -1,0 +1,19 @@
+{
+  "name": "pixel-workplace",
+  "version": "0.1.0",
+  "description": "Pixel Workplace is a simple virtual environment to simulate the lack of real life office spaces.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luanpotter/pixel-workplace.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luanpotter/pixel-workplace/issues"
+  },
+  "homepage": "https://github.com/luanpotter/pixel-workplace#readme",
+  "dependencies": {
+    "colyseus": "^0.13.0",
+    "phaser": "^3.22.0"
+  }
+}
