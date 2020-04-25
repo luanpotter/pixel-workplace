@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":100,
  "infinite":true,
  "layers":[
@@ -95,7 +102,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
@@ -107,8 +114,17 @@
  "tileheight":16,
  "tilesets":[
         {
+         "columns":5,
          "firstgid":1,
-         "source":"..\/tileset\/tileset.tsx"
+         "image":"..\/tileset\/tileset.png",
+         "imageheight":80,
+         "imagewidth":80,
+         "margin":0,
+         "name":"test",
+         "spacing":0,
+         "tilecount":25,
+         "tileheight":16,
+         "tilewidth":16
         }],
  "tilewidth":16,
  "type":"map",
