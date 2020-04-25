@@ -1,0 +1,36 @@
+{
+  "name": "pixel-workplace",
+  "version": "0.1.0",
+  "description": "Pixel Workplace is a simple virtual environment to simulate the lack of real life office spaces.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "fix": "eslint --ext .js src/ --fix",
+    "lint": "eslint --ext .js src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luanpotter/pixel-workplace.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luanpotter/pixel-workplace/issues"
+  },
+  "homepage": "https://github.com/luanpotter/pixel-workplace#readme",
+  "dependencies": {
+    "@colyseus/schema": "^0.5.37",
+    "colyseus": "^0.13.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "nodemon": "^2.0.3"
+  }
+}
