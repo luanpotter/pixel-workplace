@@ -12,7 +12,17 @@ export class Scene extends Phaser.Scene {
     }
 
     create() {
-        this.tileset = this.add.image(100, 500, 'tileset');
-        this.add.rectangle(10, 10, 100, 100, 0xFF0000);
+        const level = [
+            [0, 1, 1, 1, 1, 1, 2],
+            [9, -1, -1, -1, -1, -1, 11],
+            [9, -1, -1, -1, -1, -1, 11],
+            [9, -1, -1, -1, -1, -1, 11],
+            [9, -1, -1, -1, -1, -1, 11],
+            [9, -1, -1, -1, -1, -1, 11],
+            [18, 19, 19, 19, 19, 19, 20],
+        ];
+        const map = this.make.tilemap({ data: level, tileWidth: 12, tileHeight: 12 });
+        const tiles = map.addTilesetImage('tileset');
+        map.createStaticLayer(0, tiles, 0, 0);
     }
 }

@@ -7,6 +7,8 @@ const config = {
     width: 800,
     height: 600,
     scene: [ Scene ],
+    pixelArt: true,
+    zoom: 2,
 };
 
 new Phaser.Game(config);
