@@ -1,6 +1,6 @@
 name: Build
 
-on: [push, pr]
+on: [push, pull_request]
 
 jobs:
   client-lint:
