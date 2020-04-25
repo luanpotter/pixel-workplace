@@ -11,6 +11,6 @@ jobs:
         with:
           node-version: '10.x'
       - name: client lint
-        working-directory: client/
-        run: npm install
-        run: npm run lint
+      - working-directory: client/
+      - run: npm install
+      - run: npm run lint
