@@ -8,6 +8,8 @@ const config = {
 	height: 600,
 	scene: [Scene],
 	pixelArt: true,
+	roundPixels: true,
+	antialias: false,
 	zoom: 2,
 };
 

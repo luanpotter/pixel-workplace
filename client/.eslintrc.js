@@ -20,5 +20,7 @@ module.exports = {
     'import/extensions': ['error', 'always'],
     'import/no-default-export': ['error'],
     'import/prefer-default-export': ['off'],
+    'arrow-parens': ['error', 'as-needed'],
+    'no-unused-vars': ['error', { 'ignoreRestSiblings': true }],
   },
 };
