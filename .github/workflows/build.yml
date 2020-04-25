@@ -1,16 +1,15 @@
-name: Lint
+name: Build
 
 on: [push]
 
 jobs:
-  eslint:
+  client-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      - name: client lint
         working-directory: client/
         run: |
           npm install
