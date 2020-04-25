@@ -4,7 +4,8 @@
   "description": "Pixel Workplace is a simple virtual environment to simulate the lack of real life office spaces.",
   "main": "index.js",
   "scripts": {
-    "start": "parcel assets/index.html"
+    "start": "parcel assets/index.html",
+    "lint": "eslint lib/*"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,9 @@
     "phaser": "^3.22.0"
   },
   "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
     "parcel-bundler": "^1.12.4"
   }
 }
