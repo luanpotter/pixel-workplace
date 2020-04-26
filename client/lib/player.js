@@ -1,6 +1,6 @@
 import { TILE_SIZE } from './constants.js';
 
-const WALK_TIME = 350;
+const WALK_TIME = 375;
 
 export class Player {
 	constructor(scene, x, y, playerSkin = 0) {
@@ -22,9 +22,18 @@ export class Player {
 		return this.realCoord('y');
 	}
 
+	get moveFrac() {
+		return this.walkClock / WALK_TIME;
+	}
+
 	realCoord(prop) {
 		const realValue = this.p[prop] * TILE_SIZE + this.offset(prop) + TILE_SIZE / 2;
 		return Math.round(realValue); // prevents artifacts on tilemap
+	}
+
+	static easeFn(x) {
+		// parabola: y = -2(x^2 - x)
+		return -2 * x * (x - 1);
 	}
 
 	offset(prop) {
@@ -32,7 +41,7 @@ export class Player {
 			return 0.0;
 		}
 		const sign = Math.sign(this.dest[prop] - this.p[prop]);
-		return sign * (this.walkClock / WALK_TIME) * TILE_SIZE;
+		return sign * this.moveFrac * TILE_SIZE;
 	}
 
 	update(dt) {
@@ -47,8 +56,22 @@ export class Player {
 			}
 		}
 
+		this.scaleEffect();
 		this.sprite.x = this.realX;
 		this.sprite.y = this.realY;
+	}
+
+	scaleEffect() {
+		if (this.dest === null || this.moveFrac === 0) {
+			// scale effect only if moving on y axis
+			this.scaleBy(1.0);
+		} else {
+			this.scaleBy(1 - 0.1 * Player.easeFn(this.moveFrac));
+		}
+	}
+
+	scaleBy(scale) {
+		this.sprite.setCrop(0, 0, TILE_SIZE, scale * TILE_SIZE);
 	}
 
 	updateDirection() {
