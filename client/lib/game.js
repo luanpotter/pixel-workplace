@@ -5,7 +5,7 @@ import { connectRoom } from './server/client.js';
 
 
 const bootStrapGame = () => {
-	connectRoom().then(room => {
+	return connectRoom().then(room => {
 		const Scene = SceneFactory(room);
 
 		const config = {
@@ -19,8 +19,7 @@ const bootStrapGame = () => {
 			zoom: 2,
 		};
 
-		// eslint-disable-next-line no-new
-		new Phaser.Game(config);
+		return new Phaser.Game(config);
 	});
 };
 

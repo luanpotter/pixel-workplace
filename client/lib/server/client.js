@@ -68,10 +68,8 @@ export class GameStateManager {
 	updateMe(coords) {
 		if (this.coords && (this.coords.x === coords.x && this.coords.y === coords.y)) return;
 		this.coords = coords;
-		console.warn(coords);
 		this.room.send('move', coords);
 	}
-
 
 	isItMe(key) {
 		return this.room.sessionId === key;
@@ -80,12 +78,14 @@ export class GameStateManager {
 	onAddPlayer(player, key) {
 		if (!this.scene || !this.scene.externalPlayers) return;
 		if (this.isItMe(key)) return;
+
 		this.scene.externalPlayers.add(key, player);
 	}
 
-	onRemovePlayer(player, key) {
+	onRemovePlayer(_, key) {
 		if (!this.scene || !this.scene.externalPlayers) return;
 		if (this.isItMe(key)) return;
+
 		this.scene.externalPlayers.remove(key);
 	}
 
@@ -93,10 +93,8 @@ export class GameStateManager {
 		if (!this.scene || !this.scene.externalPlayers) return;
 		if (this.isItMe(key)) return;
 
-
 		this.scene.externalPlayers.change(key, player);
 	}
 }
 
-// eslint-disable-next-line max-len
 export const connectRoom = () => client.joinOrCreate(DEFAULT_OFFICE_NAME);

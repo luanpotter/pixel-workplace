@@ -22,5 +22,7 @@ module.exports = {
     'import/prefer-default-export': ['off'],
     'arrow-parens': ['error', 'as-needed'],
     'no-unused-vars': ['error', { 'ignoreRestSiblings': true }],
+    'arrow-body-style': ['off'],
+    'max-classes-per-file': ['off'],
   },
 };
