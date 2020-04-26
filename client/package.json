@@ -7,7 +7,7 @@
     "start": "parcel assets/index.html",
     "lint": "eslint lib/*"
   },
-  "repository": {
+    "repository": {
     "type": "git",
     "url": "git+https://github.com/luanpotter/pixel-workplace.git"
   },
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/luanpotter/pixel-workplace#readme",
   "dependencies": {
-    "colyseus": "^0.13.0",
+    "colyseus.js": "^0.13.0",
     "phaser": "^3.22.0"
   },
   "devDependencies": {

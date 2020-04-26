@@ -19,8 +19,8 @@ class State extends Schema {
   }
 
   movePlayer(id, movement) {
-    if (movement.x) { this.players[id].x += movement.x * 10 }
-    if (movement.y) { this.players[id].y += movement.y * 10 }
+    if (movement.x) { this.players[id].x += movement.x }
+    if (movement.y) { this.players[id].y += movement.y }
   }
 }
 
@@ -44,9 +44,16 @@ module.exports = class Workspace extends Room {
 
     // #Move Person
     this.onMessage('move', (client, data) => {
-      console.log(`WorkspaceRoom received message from ${client.sessionId}: ${data}`)
+      console.log(`WorkspaceRoom received message move from ${client.sessionId}: ${JSON.stringify(data)}`)
       this.state.movePlayer(client.sessionId, data)
-      console.log(this.state.players[client.sessionId].x)
+      console.log('move', this.state.players[client.sessionId].x)
+    })
+
+    // #Create player
+    this.onMessage('create', (client, data) => {
+      console.log(`WorkspaceRoom creating player ${client.sessionId}: ${JSON.stringify(data)}`)
+      this.state.createPlayer(client.sessionId, data)
+      console.log('create', this.state.players[client.sessionId].x)
     })
   }
 
