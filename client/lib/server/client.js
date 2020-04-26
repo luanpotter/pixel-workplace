@@ -13,9 +13,9 @@ class ExternalPayers {
 	}
 
 	add(id, { x, y }) {
-		const player = new Player(this.scene, x, y, 0xFF00FF);
+		const playerSkin = 1; // TODO determine skin
+		const player = new Player(this.scene, x, y, playerSkin);
 		this.players.set(id, player);
-		player.create();
 	}
 
 
@@ -35,7 +35,7 @@ class ExternalPayers {
 
 	remove(id) {
 		const player = this.players.get(id);
-		player.rect.destroy();
+		player.sprite.destroy();
 		this.players.delete(id);
 	}
 }

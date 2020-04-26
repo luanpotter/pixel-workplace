@@ -3,12 +3,15 @@ import { TILE_SIZE } from './constants.js';
 const WALK_TIME = 350;
 
 export class Player {
-	constructor(scene, x, y, color = 0xFF0000) {
+	constructor(scene, x, y, playerSkin = 0) {
 		this.scene = scene;
 		this.p = { x, y };
 		this.dest = null;
 		this.walkClock = 0.0;
-		this.color = color;
+		this.frameOffset = 3 * playerSkin;
+
+		this.sprite = this.scene.add.sprite(this.realX, this.realY, 'avatars');
+		this.sprite.setFrame(this.frameOffset);
 	}
 
 	get realX() {
@@ -32,13 +35,10 @@ export class Player {
 		return sign * (this.walkClock / WALK_TIME) * TILE_SIZE;
 	}
 
-	create() {
-		this.rect = this.scene.add.rectangle(this.realX, this.realY, TILE_SIZE, TILE_SIZE, this.color);
-	}
-
 	update(dt) {
 		if (this.dest != null) {
 			this.walkClock += dt;
+			this.updateDirection();
 			if (this.walkClock >= WALK_TIME) {
 				this.p.x = this.dest.x;
 				this.p.y = this.dest.y;
@@ -47,8 +47,27 @@ export class Player {
 			}
 		}
 
-		this.rect.x = this.realX;
-		this.rect.y = this.realY;
+		this.sprite.x = this.realX;
+		this.sprite.y = this.realY;
+	}
+
+	updateDirection() {
+		if (this.dest == null) {
+			return;
+		}
+		if (this.dest.x > this.p.x) {
+			this.sprite.setFrame(this.frameOffset + 1);
+			this.sprite.flipX = true;
+		} else if (this.dest.x < this.p.x) {
+			this.sprite.setFrame(this.frameOffset + 1);
+			this.sprite.flipX = false;
+		} else if (this.dest.y > this.p.y) {
+			this.sprite.setFrame(this.frameOffset + 0);
+			this.sprite.flipX = false;
+		} else if (this.dest.y < this.p.y) {
+			this.sprite.setFrame(this.frameOffset + 2);
+			this.sprite.flipX = false;
+		}
 	}
 
 	move({ x, y }) {
