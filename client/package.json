@@ -1,29 +1,30 @@
 {
-  "name": "pixel-workplace",
-  "version": "0.1.0",
-  "description": "Pixel Workplace is a simple virtual environment to simulate the lack of real life office spaces.",
-  "main": "index.js",
-  "scripts": {
-    "start": "parcel assets/index.html",
-    "lint": "eslint lib/*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/luanpotter/pixel-workplace.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/luanpotter/pixel-workplace/issues"
-  },
-  "homepage": "https://github.com/luanpotter/pixel-workplace#readme",
-  "dependencies": {
-    "colyseus.js": "^0.13.0",
-    "phaser": "^3.22.0"
-  },
-  "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "parcel-bundler": "^1.12.4"
-  }
+	"name": "pixel-workplace",
+	"version": "0.1.0",
+	"description": "Pixel Workplace is a simple virtual environment to simulate the lack of real life office spaces.",
+	"main": "index.js",
+	"scripts": {
+		"start": "parcel assets/index.html",
+		"build": "parcel build assets/index.html",
+		"lint": "eslint lib/*"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/luanpotter/pixel-workplace.git"
+	},
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/luanpotter/pixel-workplace/issues"
+	},
+	"homepage": "https://github.com/luanpotter/pixel-workplace#readme",
+	"dependencies": {
+		"colyseus.js": "^0.13.0",
+		"parcel-bundler": "^1.12.4",
+		"phaser": "^3.22.0"
+	},
+	"devDependencies": {
+		"eslint": "^6.8.0",
+		"eslint-config-airbnb-base": "^14.1.0",
+		"eslint-plugin-import": "^2.20.2"
+	}
 }
