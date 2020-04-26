@@ -21,5 +21,3 @@ WORKDIR /app
 COPY --from=build /client/dist .
 
 CMD http-server -p 1234
-
-
