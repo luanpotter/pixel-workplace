@@ -28,7 +28,7 @@ Pixel Workplace is a simple virtual environment to simulate the lack of real lif
 
 ##Docker
 
-At the root of the **server folder**:
+At the root of the **client folder**:
 
 `docker build -t 'image name' .` to build image
 
