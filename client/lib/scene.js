@@ -5,7 +5,7 @@ import { TILE_SIZE } from './constants.js';
 import Tileset from '../assets/images/tileset.png';
 import HallRoom from '../assets/rooms/hall.json';
 import { Player } from './player.js';
-import { GameStateManager } from './server/client';
+import { GameStateManager } from './server/client.js';
 
 export const SceneFactory = room => class Scene extends Phaser.Scene {
 	constructor() {
