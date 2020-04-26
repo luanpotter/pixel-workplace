@@ -3,7 +3,9 @@ import Phaser from 'phaser';
 import { TILE_SIZE } from './constants.js';
 
 import Tileset from '../assets/images/tileset.png';
+import Avatars from '../assets/images/avatars.png';
 import HallRoom from '../assets/rooms/hall.json';
+
 import { Player } from './player.js';
 import { GameStateManager } from './server/client.js';
 
@@ -16,7 +18,7 @@ export const SceneFactory = room => class Scene extends Phaser.Scene {
 		this.load.image('tileset', Tileset);
 		this.load.tilemapTiledJSON('hall-map', HallRoom);
 
-		this.player = new Player(this, 7, 8);
+		this.load.spritesheet('avatars', Avatars, { frameWidth: 16, frameHeight: 16 });
 	}
 
 	create() {
@@ -28,8 +30,8 @@ export const SceneFactory = room => class Scene extends Phaser.Scene {
 		const tiles = map.addTilesetImage('test', 'tileset');
 		map.createStaticLayer('background', tiles, 0, 0);
 
-		this.player.create();
-		this.cameras.main.startFollow(this.player.rect, true);
+		this.player = new Player(this, 7, 8);
+		this.cameras.main.startFollow(this.player.sprite, true);
 
 		this.keys = this.input.keyboard.addKeys('W,A,S,D');
 
