@@ -20,15 +20,17 @@ class ExternalPayers {
 
 
 	update(dt) {
-		this.players.forEach(player => player.update.bind(player)(dt));
+		this.players.forEach(player => {
+			player.update(dt);
+		});
 	}
 
-	change(id, { x, y }) {
+	change(id, { x: oldX, y: oldY }) {
 		const player = this.players.get(id);
-		const newX = x - player.p.x;
-		const newY = y - player.p.y;
-		player.move({ x: newX, y: newY });
-		console.warn({ x: newX, y: newY });
+		const x = oldX - player.p.x;
+		const y = oldY - player.p.y;
+
+		player.move({ x, y });
 	}
 
 	remove(id) {
@@ -64,8 +66,9 @@ export class GameStateManager {
 	}
 
 	updateMe(coords) {
-		if (this.coords && this.coords.x === coords.x && this.coords.y === coords.y) return;
+		if (this.coords && (this.coords.x === coords.x && this.coords.y === coords.y)) return;
 		this.coords = coords;
+		console.warn(coords);
 		this.room.send('move', coords);
 	}
 

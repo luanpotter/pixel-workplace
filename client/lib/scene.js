@@ -46,7 +46,7 @@ export const SceneFactory = room => class Scene extends Phaser.Scene {
 		this.player.update(dt);
 		if (this.externalPlayers) {
 			this.externalPlayers.update(dt);
-			this.gameStateManager.updateMe(ds);
+			this.gameStateManager.updateMe({ x: this.player.p.x, y: this.player.p.y });
 		}
 	}
 

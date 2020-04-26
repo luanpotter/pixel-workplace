@@ -19,8 +19,8 @@ class State extends Schema {
   }
 
   movePlayer(id, movement) {
-    if (movement.x) { this.players[id].x += movement.x }
-    if (movement.y) { this.players[id].y += movement.y }
+    if (movement.x) { this.players[id].x = movement.x }
+    if (movement.y) { this.players[id].y = movement.y }
   }
 }
 
