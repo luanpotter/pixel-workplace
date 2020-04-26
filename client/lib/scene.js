@@ -2,9 +2,9 @@ import Phaser from 'phaser';
 
 import { TILE_SIZE } from './constants.js';
 
-import Tileset from '../assets/images/tileset.png';
-import Avatars from '../assets/images/avatars.png';
-import HallRoom from '../assets/rooms/hall.json';
+import Tileset from '../assets/resources/tileset/tileset.png';
+import Avatars from '../assets/resources/avatars/avatars.png';
+import HallRoom from '../assets/resources/rooms/hall.json';
 
 import { Player } from './player.js';
 import { GameStateManager } from './server/client.js';
