@@ -3,11 +3,12 @@ import { TILE_SIZE } from './constants.js';
 const WALK_TIME = 350;
 
 export class Player {
-	constructor(scene, x, y) {
+	constructor(scene, x, y, color = 0xFF0000) {
 		this.scene = scene;
 		this.p = { x, y };
 		this.dest = null;
 		this.walkClock = 0.0;
+		this.color = color;
 	}
 
 	get realX() {
@@ -32,7 +33,7 @@ export class Player {
 	}
 
 	create() {
-		this.rect = this.scene.add.rectangle(this.realX, this.realY, TILE_SIZE, TILE_SIZE, 0xFF0000);
+		this.rect = this.scene.add.rectangle(this.realX, this.realY, TILE_SIZE, TILE_SIZE, this.color);
 	}
 
 	update(dt) {
