@@ -8,6 +8,8 @@ app.use(express.json())
 
 app.get('/hello', (req, res) => res.send('Welcome to Pixel Workspace!'))
 
+app.use(express.static('public'))
+
 const gameServer = new colyseus.Server({
   server: createServer(app)
 })
