@@ -4,7 +4,9 @@ import { Player } from '../player.js';
 const PORT = 3000;
 const DEFAULT_OFFICE_NAME = 'workspace';
 
-const client = new Client(`ws://localhost:${PORT}`);
+const host = document.location.hostname;
+const SERVER = `ws://${host}:${PORT}`;
+const client = new Client(SERVER);
 
 class ExternalPayers {
 	constructor(scene) {
