@@ -1,6 +1,7 @@
 import { Client } from 'colyseus.js';
 import { Player } from '../player.js';
 
+const DEFAULT_OFFICE_NAME = 'workspace';
 const server = process.env.SERVER_URL;
 
 // eslint-disable-next-line no-console
