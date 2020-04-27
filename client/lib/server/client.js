@@ -5,8 +5,12 @@ const PORT = 3000;
 const DEFAULT_OFFICE_NAME = 'workspace';
 
 const host = document.location.hostname;
-const SERVER = `ws://${host}:${PORT}`;
-const client = new Client(SERVER);
+const server = `ws://${host}:${PORT}`;
+
+// eslint-disable-next-line no-console
+console.info(`Will connect to server at ${server}`);
+
+const client = new Client(server);
 
 class ExternalPayers {
 	constructor(scene) {
