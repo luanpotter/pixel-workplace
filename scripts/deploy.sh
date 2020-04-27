@@ -1,3 +1,9 @@
 #!/bin/bash -xe
 
-git subtree push --prefix server heroku master
+rm -rf dist
+
+cp -r server dist
+rm dist/public
+cp -r client/dist dist/public
+
+git subtree push --prefix dist heroku master
