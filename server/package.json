@@ -9,6 +9,7 @@
     "fix": "eslint --ext .js src/ --fix",
     "lint": "eslint --ext .js src/"
   },
+  "entrypoint": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/luanpotter/pixel-workplace.git"
