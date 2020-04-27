@@ -1,11 +1,7 @@
 import { Client } from 'colyseus.js';
 import { Player } from '../player.js';
 
-const PORT = 3000;
-const DEFAULT_OFFICE_NAME = 'workspace';
-
-const host = document.location.hostname;
-const server = `ws://${host}:${PORT}`;
+const server = process.env.SERVER_URL;
 
 // eslint-disable-next-line no-console
 console.info(`Will connect to server at ${server}`);
