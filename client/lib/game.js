@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { Plugin as NineSlicePlugin } from 'phaser3-nineslice';
 
 import { SceneFactory } from './scene.js';
 import { connectRoom } from './server/client.js';
@@ -12,11 +13,14 @@ const bootStrapGame = () => {
 			type: Phaser.AUTO,
 			width: 800,
 			height: 600,
-			scene: [Scene],
 			pixelArt: true,
 			roundPixels: true,
 			antialias: false,
 			zoom: 2,
+			scene: [Scene],
+			plugins: {
+				global: [NineSlicePlugin.DefaultCfg],
+			},
 		};
 
 		return new Phaser.Game(config);

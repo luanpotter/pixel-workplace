@@ -1,6 +1,9 @@
 import { TILE_SIZE } from './constants.js';
+import { Bubbles } from './bubbles.js';
 
 const WALK_TIME = 375;
+const BUBBLE_TIME = 3000;
+const BUBBLE_FADE = 1500;
 
 export class Player {
 	constructor(scene, x, y, playerSkin = 0) {
@@ -8,10 +11,13 @@ export class Player {
 		this.p = { x, y };
 		this.dest = null;
 		this.walkClock = 0.0;
+		this.bubbleClock = 0.0;
 		this.frameOffset = 3 * playerSkin;
 
 		this.sprite = this.scene.add.sprite(this.realX, this.realY, 'avatars');
 		this.sprite.setFrame(this.frameOffset);
+
+		this.speak('Welcome to Pixel!');
 	}
 
 	get realX() {
@@ -24,6 +30,19 @@ export class Player {
 
 	get moveFrac() {
 		return this.walkClock / WALK_TIME;
+	}
+
+	get bubbleFrac() {
+		if (this.bubbleClock > BUBBLE_FADE) {
+			return 0;
+		}
+		return 1 - this.bubbleClock / BUBBLE_FADE;
+	}
+
+	speak(message) {
+		this.bubbleClock = BUBBLE_TIME;
+		this.bubble = Bubbles.render(this.scene, message);
+		this.moveBubble();
 	}
 
 	realCoord(prop) {
@@ -55,10 +74,19 @@ export class Player {
 				this.walkClock = 0.0;
 			}
 		}
+		if (this.bubbleClock > 0) {
+			this.bubbleClock -= dt;
+			if (this.bubbleClock <= 0) {
+				this.bubbleClock = 0;
+				this.bubble.destroy();
+				this.bubble = null;
+			}
+		}
 
 		this.scaleEffect();
 		this.sprite.x = this.realX;
 		this.sprite.y = this.realY;
+		this.moveBubble();
 	}
 
 	scaleEffect() {
@@ -68,6 +96,19 @@ export class Player {
 		} else {
 			this.scaleBy(1 - 0.1 * Player.easeFn(this.moveFrac));
 		}
+	}
+
+	moveBubble() {
+		if (this.bubble == null) {
+			return;
+		}
+		this.bubble.x = this.sprite.x + TILE_SIZE / 2 - this.bubble.width - 4;
+		this.bubble.y = this.sprite.y - TILE_SIZE / 2 - this.bubble.height - 4;
+
+		// log decay
+		// y = 1 + ln(-x*(1-1/e) + 1)
+		const a = 1 - 1 / Math.E;
+		this.bubble.alpha = 1 + Math.log(-a * this.bubbleFrac + 1);
 	}
 
 	scaleBy(scale) {

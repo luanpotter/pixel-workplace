@@ -8,6 +8,7 @@ import HallRoom from '../assets/resources/rooms/hall.json';
 
 import { Player } from './player.js';
 import { GameStateManager } from './server/client.js';
+import { Bubbles } from './bubbles.js';
 
 export const SceneFactory = room => class Scene extends Phaser.Scene {
 	constructor() {
@@ -15,6 +16,8 @@ export const SceneFactory = room => class Scene extends Phaser.Scene {
 	}
 
 	preload() {
+		Bubbles.preload(this);
+
 		this.load.image('tileset', Tileset);
 		this.load.tilemapTiledJSON('hall-map', HallRoom);
 
