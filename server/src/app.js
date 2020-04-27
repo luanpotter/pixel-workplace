@@ -3,7 +3,7 @@ const colyseus = require('colyseus')
 const { createServer } = require('http')
 const Workspace = require('./rooms/workspace')
 
-const VERSION = 'dev' // this is replaced by the deploy script
+const VERSION = process.env.HEROKU_SLUG_COMMIT || 'dev'
 
 const app = express()
 app.use(express.json())
