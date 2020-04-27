@@ -6,6 +6,8 @@ const Workspace = require('./rooms/workspace')
 const app = express()
 app.use(express.json())
 
+app.get('/hello', (req, res) => res.send('Welcome to Pixel Workspace!'))
+
 const gameServer = new colyseus.Server({
   server: createServer(app)
 })
