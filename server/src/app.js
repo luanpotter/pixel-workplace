@@ -1,4 +1,5 @@
 const express = require('express')
+const forceSSL = require('express-force-ssl');
 const colyseus = require('colyseus')
 const { createServer } = require('http')
 const Workspace = require('./rooms/workspace')
@@ -7,6 +8,7 @@ const VERSION = process.env.HEROKU_SLUG_COMMIT || 'dev'
 
 const app = express()
 app.use(express.json())
+app.use(forceSSL);
 
 app.get('/hello', (req, res) => res.send(`Welcome to Pixel Workspace! Version: ${VERSION}`))
 
