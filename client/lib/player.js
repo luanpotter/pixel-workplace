@@ -139,4 +139,9 @@ export class Player {
 			this.dest = { x: this.p.x + x, y: this.p.y + y };
 		}
 	}
+
+	destroy() {
+		this.bubble.destroy();
+		super.destroy();
+	}
 }

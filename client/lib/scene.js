@@ -25,6 +25,9 @@ export const SceneFactory = room => class Scene extends Phaser.Scene {
 	}
 
 	create() {
+		this.messageDiv = document.querySelector('#write-message');
+		this.isTyping = false;
+
 		const map = this.make.tilemap({
 			key: 'hall-map',
 			tileWidth: TILE_SIZE,
@@ -38,15 +41,29 @@ export const SceneFactory = room => class Scene extends Phaser.Scene {
 
 		this.keys = this.input.keyboard.addKeys('W,A,S,D');
 
+		this.input.keyboard.on('keydown_T', () => {
+			this.isTyping = true;
+			this.messageDiv.style.display = 'block';
+			this.messageDiv.querySelector('input').focus();
+			return true;
+		});
+		this.input.keyboard.on('keydown_ESC', () => {
+			this.isTyping = false;
+			this.messageDiv.style.display = 'none';
+			return true;
+		});
+
 		this.gameStateManager = new GameStateManager(room, this);
 	}
 
 	update(_, dt) {
-		const ds = {
-			x: this.deltaX(),
-			y: this.deltaY(),
-		};
-		this.player.move(ds);
+		if (!this.isTyping) {
+			const ds = {
+				x: this.deltaX(),
+				y: this.deltaY(),
+			};
+			this.player.move(ds);
+		}
 
 		this.player.update(dt);
 		if (this.externalPlayers) {

@@ -17,6 +17,7 @@ const bootStrapGame = () => {
 			roundPixels: true,
 			antialias: false,
 			zoom: 2,
+			parent: 'game',
 			scene: [Scene],
 			plugins: {
 				global: [NineSlicePlugin.DefaultCfg],
