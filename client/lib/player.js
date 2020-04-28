@@ -40,6 +40,9 @@ export class Player {
 	}
 
 	speak(message) {
+		if (this.bubble != null) {
+			this.bubble.destroy();
+		}
 		this.bubbleClock = BUBBLE_TIME;
 		this.bubble = Bubbles.render(this.scene, message);
 		this.moveBubble();
