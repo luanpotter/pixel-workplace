@@ -41,6 +41,11 @@ class ExternalPayers {
 		player.sprite.destroy();
 		this.players.delete(id);
 	}
+
+	speak(id, message) {
+		const player = this.players.get(id);
+		player.speak(message);
+	}
 }
 
 
@@ -49,9 +54,22 @@ export class GameStateManager {
 		this.room = room;
 		this.addScene(scene);
 
+		this.room.onMessage('status-messages', content => {
+			// eslint-disable-next-line no-console
+			console.info('Sever:', content);
+		});
+
 		this.room.state.players.onAdd = this.onAddPlayer.bind(this);
 		this.room.state.players.onRemove = this.onRemovePlayer.bind(this);
 		this.room.state.players.onChange = this.onChangePlayer.bind(this);
+
+		this.room.onMessage('chat-messages', ({ player, message }) => {
+			if (this.isItMe(player)) {
+				this.scene.player.speak(message);
+			} else {
+				this.scene.externalPlayers.speak(player, message);
+			}
+		});
 	}
 
 	addScene(scene) {
@@ -72,6 +90,10 @@ export class GameStateManager {
 		if (this.coords && (this.coords.x === coords.x && this.coords.y === coords.y)) return;
 		this.coords = coords;
 		this.room.send('move', coords);
+	}
+
+	sendMessage(message) {
+		this.room.send('send-chat', message);
 	}
 
 	isItMe(key) {

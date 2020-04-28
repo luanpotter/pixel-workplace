@@ -28,45 +28,45 @@ schema.defineTypes(State, {
   players: { map: Player }
 })
 
+const roomName = 'WorkspaceRoom'
+
 module.exports = class Workspace extends Room {
   onCreate() {
-    console.log('WorkspaceRoom Created')
+    console.log(`${roomName} Created`)
 
     this.setState(new State())
 
-    // #Chat example
-    // Listen to the event
-    this.onMessage('chatRequest', (client, message) => {
-      console.log(`WorkspaceRoom received message from ${client.sessionId}: ${message}`)
-      // Returns content for broadcast
-      this.broadcast('chatResponse', `(${client.sessionId}) ${message}`)
+    // chat
+    this.onMessage('send-chat', (client, message) => {
+      console.log(`${roomName} received message from ${client.sessionId}: ${message}`)
+      this.broadcast('chat-messages', { player: client.sessionId, message })
     })
 
-    // #Move Person
+    // move player
     this.onMessage('move', (client, data) => {
-      console.log(`WorkspaceRoom received message move from ${client.sessionId}: ${JSON.stringify(data)}`)
+      console.log(`${roomName} received message move from ${client.sessionId}: ${JSON.stringify(data)}`)
       this.state.movePlayer(client.sessionId, data)
       console.log('move', this.state.players[client.sessionId].x)
     })
 
-    // #Create player
+    // create player
     this.onMessage('create', (client, data) => {
-      console.log(`WorkspaceRoom creating player ${client.sessionId}: ${JSON.stringify(data)}`)
+      console.log(`${roomName} creating player ${client.sessionId}: ${JSON.stringify(data)}`)
       this.state.createPlayer(client.sessionId, data)
       console.log('create', this.state.players[client.sessionId].x)
     })
   }
 
   onJoin(client) {
-    this.broadcast('messages', `${client.sessionId} joined.`)
+    this.broadcast('status-messages', `${client.sessionId} joined.`)
   }
 
   onLeave(client) {
     this.state.removePlayer(client.sessionId)
-    this.broadcast('messages', `${client.sessionId} left.`)
+    this.broadcast('status-messages', `${client.sessionId} left.`)
   }
 
   onDispose() {
-    console.log('Dispose WorkspaceRoom')
+    console.log(`Dispose ${roomName}`)
   }
 }

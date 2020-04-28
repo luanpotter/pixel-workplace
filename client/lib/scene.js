@@ -59,8 +59,7 @@ export const SceneFactory = room => class Scene extends Phaser.Scene {
 			this.setTyping(false);
 			const message = this.messageInput.value;
 			this.messageInput.value = '';
-			// TODO broadcast message
-			this.player.speak(message);
+			this.gameStateManager.sendMessage(message);
 		});
 
 		this.gameStateManager = new GameStateManager(room, this);
