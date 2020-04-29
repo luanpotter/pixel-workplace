@@ -50,9 +50,9 @@ class ExternalPayers {
 
 
 export class GameStateManager {
-	constructor(room, scene) {
+	constructor(room, username, scene) {
 		this.room = room;
-		this.addScene(scene);
+		this.addScene(scene, username);
 
 		this.room.onMessage('status-messages', content => {
 			// eslint-disable-next-line no-console
@@ -72,10 +72,10 @@ export class GameStateManager {
 		});
 	}
 
-	addScene(scene) {
+	addScene(scene, username) {
 		this.scene = scene;
 		this.scene.externalPlayers = new ExternalPayers(this.scene);
-		const data = { x: 7, y: 8 };
+		const data = { username, x: 7, y: 8 };
 		this.room.send('create', data);
 
 		Object.keys(this.room.state.players).forEach(id => {

@@ -10,7 +10,7 @@ import { Player } from './player.js';
 import { GameStateManager } from './server/client.js';
 import { Bubbles } from './bubbles.js';
 
-export const SceneFactory = room => class Scene extends Phaser.Scene {
+export const SceneFactory = (room, username) => class Scene extends Phaser.Scene {
 	constructor() {
 		super({ key: 'MainScene' });
 	}
@@ -37,7 +37,7 @@ export const SceneFactory = room => class Scene extends Phaser.Scene {
 		const tiles = map.addTilesetImage('test', 'tileset');
 		map.createStaticLayer('background', tiles, 0, 0);
 
-		this.player = new Player(this, 7, 8);
+		this.player = new Player(this, username, 7, 8);
 		this.cameras.main.startFollow(this.player.sprite, true);
 
 		this.keys = this.input.keyboard.addKeys('W,A,S,D', false);
@@ -62,7 +62,7 @@ export const SceneFactory = room => class Scene extends Phaser.Scene {
 			this.gameStateManager.sendMessage(message);
 		});
 
-		this.gameStateManager = new GameStateManager(room, this);
+		this.gameStateManager = new GameStateManager(room, username, this);
 	}
 
 	setTyping(value) {
