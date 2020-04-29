@@ -5,6 +5,7 @@ import { SceneFactory } from './scene.js';
 import { connectRoom } from './server/client.js';
 
 
+// eslint-disable-next-line no-unused-vars
 const bootStrapGame = () => {
 	return connectRoom().then(room => {
 		const Scene = SceneFactory(room);
@@ -28,5 +29,18 @@ const bootStrapGame = () => {
 	});
 };
 
+const login = () => {
+	const usernameInput = document.querySelector('#username-input');
+	if (!usernameInput.value) return;
 
-bootStrapGame();
+	const username = usernameInput.value.toLowerCase();
+	// eslint-disable-next-line no-console
+	console.log(username);
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+	const logginButton = document.querySelector('#login-button');
+	logginButton.onclick = login;
+});
+
+// bootStrapGame();
