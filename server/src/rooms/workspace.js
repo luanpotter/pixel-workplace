@@ -10,8 +10,16 @@ class State extends Schema {
     this.players = new MapSchema()
   }
 
-  createPlayer(id, position) {
-    this.players[id] = new Player(position.x, position.y)
+  checkIfUsernameExists(username) {
+    for (const id in this.players) {
+      if (username === this.players[id].username) return true
+    }
+
+    return false
+  }
+
+  createPlayer(id, { username, x, y }) {
+    this.players[id] = new Player(username, x, y)
   }
 
   removePlayer(id) {
@@ -47,6 +55,12 @@ module.exports = class Workspace extends Room {
       console.log(`${roomName} received message move from ${client.sessionId}: ${JSON.stringify(data)}`)
       this.state.movePlayer(client.sessionId, data)
       console.log('move', this.state.players[client.sessionId].x)
+    })
+
+    // check username
+    this.onMessage('check-username', (client, username) => {
+      const usernameExists = this.state.checkIfUsernameExists(username)
+      this.broadcast(`success-login-${client.sessionId}`, { player: client.sessionId, username, success: !usernameExists })
     })
 
     // create player

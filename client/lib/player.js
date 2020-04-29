@@ -6,8 +6,9 @@ const BUBBLE_TIME = 3000;
 const BUBBLE_FADE = 1500;
 
 export class Player {
-	constructor(scene, x, y, playerSkin = 0) {
+	constructor(scene, username, x, y, playerSkin = 0) {
 		this.scene = scene;
+		this.username = username;
 		this.p = { x, y };
 		this.dest = null;
 		this.walkClock = 0.0;
@@ -17,7 +18,7 @@ export class Player {
 		this.sprite = this.scene.add.sprite(this.realX, this.realY, 'avatars');
 		this.sprite.setFrame(this.frameOffset);
 
-		this.speak('Welcome to Pixel!');
+		this.speak(`Welcome to Pixel, ${this.username}!`);
 	}
 
 	get realX() {
