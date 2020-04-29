@@ -1,6 +1,7 @@
 FROM node:12.16.2-alpine as build
 
 ENV PARCEL_WORKERS=1
+ENV SERVER_URL=ws://localhost:3000
 
 WORKDIR /client
 
