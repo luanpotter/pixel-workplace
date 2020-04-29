@@ -5,6 +5,7 @@ ENV PARCEL_WORKERS=1
 WORKDIR /client
 
 COPY package.json package-lock.json ./
+COPY ./.env.development ./.env.production
 COPY ./assets ./assets
 COPY ./lib ./lib
 
