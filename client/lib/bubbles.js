@@ -6,7 +6,7 @@ export class Bubbles {
 	}
 
 	static render(scene, message) {
-		const m = 4;
+		const m = 8;
 
 		const txt = scene.add.text(m, m, message, {
 			fontFamily: 'cube-cavern',
