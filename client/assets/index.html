@@ -22,8 +22,8 @@
 		}
 		#write-message {
 			position: fixed;
-			width: 1600px;
-			bottom: calc(50% - 600px);
+			width: 80%;
+			bottom: 10%;
 			display: none;
 		}
 		#write-message input {
@@ -52,7 +52,7 @@
       font-family: "cube-cavern";
       text-align: center;
     }
-    .form-input {
+    input {
 			border: 2px solid #fff;
       border-radius: 5px;
       font-size: 18px;
@@ -60,7 +60,7 @@
       padding: 5px 15px;
       width: 100%;
     }
-    .form-input:focus {
+    input:focus {
       outline: none;
     }
     .form-button {
@@ -100,7 +100,7 @@
 
       <form id="form-login">
         <div class="form-control">
-          <input class="form-input" type="text" placeholder="Username" id="username-input">
+          <input type="text" placeholder="Username" id="username-input">
           <button type="submit" class="form-button" id="login-button">Entrar</button>
         </div>
 

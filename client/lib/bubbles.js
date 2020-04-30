@@ -10,7 +10,7 @@ export class Bubbles {
 
 		const txt = scene.add.text(m, m, message, {
 			fontFamily: 'cube-cavern',
-			fontSize: '8px',
+			fontSize: '18px',
 			color: 0xFF00FF,
 		});
 
