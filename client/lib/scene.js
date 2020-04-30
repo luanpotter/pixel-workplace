@@ -61,6 +61,9 @@ export const SceneFactory = (room, username) => class Scene extends Phaser.Scene
 			this.setTyping(false);
 			const message = this.messageInput.value;
 			this.messageInput.value = '';
+			if (!message || !message.trim()) {
+				return;
+			}
 			this.gameStateManager.sendMessage(message);
 		});
 
