@@ -7,14 +7,18 @@ import { connectRoom } from './server/client.js';
 const boostrapGame = (room, username) => {
 	const Scene = SceneFactory(room, username);
 
+	const scaleFactor = 1;
+	const width = (0.8 * window.innerWidth) / scaleFactor;
+	const height = (0.8 * window.innerHeight) / scaleFactor;
+
 	const config = {
 		type: Phaser.AUTO,
-		width: 800,
-		height: 600,
+		width,
+		height,
 		pixelArt: true,
 		roundPixels: true,
-		antialias: false,
-		zoom: 2,
+		antialias: true,
+		zoom: scaleFactor,
 		parent: 'game',
 		scene: [Scene],
 		plugins: {
@@ -40,14 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 
 		const formLogin = document.querySelector('#form-login');
+		const usernameInput = document.querySelector('#username-input');
 
 		formLogin.onsubmit = e => {
 			e.preventDefault();
-			const usernameInput = document.querySelector('#username-input');
 			if (!usernameInput.value) return;
 
 			const username = usernameInput.value.toLowerCase();
 			room.send('check-username', username);
 		};
+
+		usernameInput.focus();
 	});
 });

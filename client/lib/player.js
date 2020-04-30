@@ -1,7 +1,7 @@
-import { TILE_SIZE } from './constants.js';
+import { SRC_TILE_SIZE, DEST_TILE_SIZE } from './constants.js';
 import { Bubbles } from './bubbles.js';
 
-const WALK_TIME = 375;
+const WALK_TIME = 400;
 const BUBBLE_TIME = 3000;
 const BUBBLE_FADE = 1500;
 
@@ -16,6 +16,8 @@ export class Player {
 		this.frameOffset = 3 * playerSkin;
 
 		this.sprite = this.scene.add.sprite(this.realX, this.realY, 'avatars');
+		this.sprite.displayWidth = DEST_TILE_SIZE;
+		this.sprite.displayHeight = DEST_TILE_SIZE;
 		this.sprite.setFrame(this.frameOffset);
 
 		this.speak(`Welcome to Pixel, ${this.username}!`);
@@ -50,8 +52,7 @@ export class Player {
 	}
 
 	realCoord(prop) {
-		const realValue = this.p[prop] * TILE_SIZE + this.offset(prop) + TILE_SIZE / 2;
-		return Math.round(realValue); // prevents artifacts on tilemap
+		return this.p[prop] * DEST_TILE_SIZE + this.offset(prop) + DEST_TILE_SIZE / 2;
 	}
 
 	static easeFn(x) {
@@ -64,7 +65,7 @@ export class Player {
 			return 0.0;
 		}
 		const sign = Math.sign(this.dest[prop] - this.p[prop]);
-		return sign * this.moveFrac * TILE_SIZE;
+		return sign * this.moveFrac * DEST_TILE_SIZE;
 	}
 
 	update(dt) {
@@ -98,7 +99,7 @@ export class Player {
 			// scale effect only if moving on y axis
 			this.scaleBy(1.0);
 		} else {
-			this.scaleBy(1 - 0.1 * Player.easeFn(this.moveFrac));
+			this.scaleBy(1 - 0.2 * Player.easeFn(this.moveFrac));
 		}
 	}
 
@@ -106,8 +107,8 @@ export class Player {
 		if (this.bubble == null) {
 			return;
 		}
-		this.bubble.x = this.sprite.x + TILE_SIZE / 2 - this.bubble.width - 4;
-		this.bubble.y = this.sprite.y - TILE_SIZE / 2 - this.bubble.height - 4;
+		this.bubble.x = this.sprite.x + DEST_TILE_SIZE / 2 - this.bubble.width - 4;
+		this.bubble.y = this.sprite.y - DEST_TILE_SIZE / 2 - this.bubble.height - 4;
 
 		// log decay
 		// y = 1 + ln(-x*(1-1/e) + 1)
@@ -116,7 +117,7 @@ export class Player {
 	}
 
 	scaleBy(scale) {
-		this.sprite.setCrop(0, 0, TILE_SIZE, scale * TILE_SIZE);
+		this.sprite.setCrop(0, 0, SRC_TILE_SIZE, Math.round(scale * SRC_TILE_SIZE));
 	}
 
 	updateDirection() {

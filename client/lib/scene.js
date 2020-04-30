@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 
-import { TILE_SIZE } from './constants.js';
+import { SRC_TILE_SIZE, DEST_TILE_SIZE } from './constants.js';
 
-import Tileset from '../assets/resources/tileset/tileset.png';
+import Tileset from '../assets/resources/tileset/tileset-extruded.png';
 import Avatars from '../assets/resources/avatars/avatars.png';
 import HallRoom from '../assets/resources/rooms/hall.json';
 
@@ -21,7 +21,7 @@ export const SceneFactory = (room, username) => class Scene extends Phaser.Scene
 		this.load.image('tileset', Tileset);
 		this.load.tilemapTiledJSON('hall-map', HallRoom);
 
-		this.load.spritesheet('avatars', Avatars, { frameWidth: 16, frameHeight: 16 });
+		this.load.spritesheet('avatars', Avatars, { frameWidth: SRC_TILE_SIZE, frameHeight: SRC_TILE_SIZE });
 	}
 
 	create() {
@@ -31,14 +31,16 @@ export const SceneFactory = (room, username) => class Scene extends Phaser.Scene
 
 		const map = this.make.tilemap({
 			key: 'hall-map',
-			tileWidth: TILE_SIZE,
-			tileHeight: TILE_SIZE,
+			tileWidth: DEST_TILE_SIZE,
+			tileHeight: DEST_TILE_SIZE,
 		});
-		const tiles = map.addTilesetImage('test', 'tileset');
-		map.createStaticLayer('background', tiles, 0, 0);
+		const tiles = map.addTilesetImage('test', 'tileset', SRC_TILE_SIZE, SRC_TILE_SIZE, 1, 2);
+		const tileScale = DEST_TILE_SIZE / SRC_TILE_SIZE;
+		map.createStaticLayer('background', tiles, 0, 0).setScale(tileScale, tileScale);
 
 		this.player = new Player(this, username, 7, 8);
 		this.cameras.main.startFollow(this.player.sprite, true);
+		this.cameras.main.roundPixels = true;
 
 		this.keys = this.input.keyboard.addKeys('W,A,S,D', false);
 

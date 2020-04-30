@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "parcel assets/index.html",
+		"build-tileset": "tile-extruder --tileWidth 16 --tileHeight 16 --input ./assets/resources/tileset/tileset.png --output ./assets/resources/tileset/tileset-extruded.png",
 		"build": "parcel build assets/index.html",
 		"lint": "eslint lib/*"
 	},
@@ -27,7 +28,8 @@
 		"eslint": "^6.8.0",
 		"eslint-config-airbnb-base": "^14.1.0",
 		"eslint-plugin-import": "^2.20.2",
-		"husky": "^4.2.5"
+		"husky": "^4.2.5",
+		"tile-extruder": "^2.0.5"
 	},
 	"husky": {
 		"hooks": {
