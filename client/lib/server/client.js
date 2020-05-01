@@ -56,7 +56,7 @@ export class GameStateManager {
 
 		this.room.onMessage('status-messages', content => {
 			// eslint-disable-next-line no-console
-			console.info('Sever:', content);
+			console.info('Server:', content);
 		});
 
 		this.room.state.players.onAdd = this.onAddPlayer.bind(this);
