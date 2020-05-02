@@ -6,7 +6,7 @@ const BUBBLE_TIME = 3000;
 const BUBBLE_FADE = 1500;
 
 export class Player {
-	constructor(scene, username, x, y, playerSkin = 0) {
+	constructor(scene, username, x, y, playerSkin) {
 		this.scene = scene;
 		this.username = username;
 		this.p = { x, y };
