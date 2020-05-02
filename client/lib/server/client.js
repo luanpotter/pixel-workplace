@@ -15,9 +15,9 @@ class ExternalPayers {
 		this.scene = scene;
 	}
 
-	add(id, { x, y }) {
+	add(id, { username, x, y }) {
 		const playerSkin = 1; // TODO determine skin
-		const player = new Player(this.scene, x, y, playerSkin);
+		const player = new Player(this.scene, username, x, y, playerSkin);
 		this.players.set(id, player);
 	}
 
@@ -75,7 +75,8 @@ export class GameStateManager {
 	addScene(scene, username) {
 		this.scene = scene;
 		this.scene.externalPlayers = new ExternalPayers(this.scene);
-		const data = { username, x: 7, y: 8 };
+		const { spawnPoint } = this.scene;
+		const data = { username, x: spawnPoint.x, y: spawnPoint.y };
 		this.room.send('create', data);
 
 		Object.keys(this.room.state.players).forEach(id => {
