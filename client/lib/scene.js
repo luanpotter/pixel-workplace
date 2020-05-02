@@ -10,7 +10,7 @@ import { Player } from './player.js';
 import { GameStateManager } from './server/client.js';
 import { Bubbles } from './bubbles.js';
 
-export const SceneFactory = (room, username) => class Scene extends Phaser.Scene {
+export const SceneFactory = (room, username, skin) => class Scene extends Phaser.Scene {
 	constructor() {
 		super({ key: 'MainScene' });
 	}
@@ -47,10 +47,8 @@ export const SceneFactory = (room, username) => class Scene extends Phaser.Scene
 			x: Math.round(this.walkAreas[0].x / DEST_TILE_SIZE),
 			y: Math.round(this.walkAreas[0].y / DEST_TILE_SIZE),
 		};
-		// TODO determine skin
-		const playerSkin = 0;
 
-		this.player = new Player(this, username, this.spawnPoint.x, this.spawnPoint.y, playerSkin);
+		this.player = new Player(this, username, this.spawnPoint.x, this.spawnPoint.y, skin);
 		this.cameras.main.startFollow(this.player.sprite, true);
 		this.cameras.main.roundPixels = true;
 
@@ -80,7 +78,7 @@ export const SceneFactory = (room, username) => class Scene extends Phaser.Scene
 			this.gameStateManager.sendMessage(message);
 		});
 
-		this.gameStateManager = new GameStateManager(room, username, this);
+		this.gameStateManager = new GameStateManager(room, username, skin, this);
 	}
 
 	parseObjectsFromTiled() {

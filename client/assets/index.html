@@ -48,11 +48,12 @@
     }
     #error-message {
 			color: #fff;
-      display: none;
       font-family: "cube-cavern";
+      display: none;
       text-align: center;
+      margin-top: 24px;
     }
-    input {
+    input, select {
 			border: 2px solid #fff;
       border-radius: 5px;
       font-size: 18px;
@@ -60,7 +61,11 @@
       padding: 5px 15px;
       width: 100%;
     }
-    input:focus {
+    #skin-selector {
+      width: 128px;
+      margin-left: 10px;
+    }
+    input:focus, select:focus {
       outline: none;
     }
     .form-button {
@@ -101,12 +106,15 @@
       <form id="form-login">
         <div class="form-control">
           <input type="text" placeholder="Username" id="username-input">
+          <select id="skin-selector">
+              <option value="-1">-- Skin --</option>
+              <option value="0">Boy</option>
+              <option value="1">Girl</option>
+          </select>
           <button type="submit" class="form-button" id="login-button">Entrar</button>
         </div>
 
-        <div id="error-message">
-          <p>Esse username já está sendo utilizado.</p>
-        </div>
+        <div id="error-message"></div>
       </form>
     </div>
 	</div>

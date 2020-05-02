@@ -16,9 +16,10 @@ class ExternalPayers {
 		this.scene = scene;
 	}
 
-	add(id, { username, x, y }) {
-		const playerSkin = 1; // TODO determine skin
-		const player = new Player(this.scene, username, x, y, playerSkin);
+	add(id, { username, skin, x, y, direction }) {
+		const player = new Player(this.scene, username, x, y, skin);
+		player.direction = direction;
+		player.updateDirection();
 		this.players.set(id, player);
 	}
 
@@ -57,9 +58,9 @@ class ExternalPayers {
 
 
 export class GameStateManager {
-	constructor(room, username, scene) {
+	constructor(room, username, skin, scene) {
 		this.room = room;
-		this.addScene(scene, username);
+		this.addScene(scene, username, skin);
 
 		this.room.onMessage('status-messages', content => {
 			// eslint-disable-next-line no-console
@@ -79,11 +80,12 @@ export class GameStateManager {
 		});
 	}
 
-	addScene(scene, username) {
+	addScene(scene, username, skin) {
 		this.scene = scene;
 		this.scene.externalPlayers = new ExternalPayers(this.scene);
+
 		const { spawnPoint } = this.scene;
-		const data = { username, x: spawnPoint.x, y: spawnPoint.y };
+		const data = { username, skin, x: spawnPoint.x, y: spawnPoint.y, direction: 0 };
 		this.room.send('create', data);
 
 		Object.keys(this.room.state.players).forEach(id => {

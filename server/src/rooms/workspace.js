@@ -18,8 +18,8 @@ class State extends Schema {
     return false
   }
 
-  createPlayer(id, { username, x, y }) {
-    this.players[id] = new Player(username, x, y, 0, -1)
+  createPlayer(id, { username, skin, x, y, direction }) {
+    this.players[id] = new Player(username, skin, x, y, direction, -1)
   }
 
   removePlayer(id) {

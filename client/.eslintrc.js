@@ -24,5 +24,6 @@ module.exports = {
     'no-unused-vars': ['error', { 'ignoreRestSiblings': true }],
     'arrow-body-style': ['off'],
     'max-classes-per-file': ['off'],
+    'object-curly-newline': ['off'],
   },
 };
