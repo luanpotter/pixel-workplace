@@ -55,6 +55,7 @@ export const SceneFactory = (room, username) => class Scene extends Phaser.Scene
 		this.cameras.main.roundPixels = true;
 
 		this.keys = this.input.keyboard.addKeys('W,A,S,D', false);
+		this.shiftKey = this.input.keyboard.addKey('shift');
 
 		this.input.keyboard.on('keydown_T', e => {
 			if (this.isTyping) {
@@ -106,7 +107,11 @@ export const SceneFactory = (room, username) => class Scene extends Phaser.Scene
 		this.player.update(dt);
 		if (this.externalPlayers) {
 			this.externalPlayers.update(dt);
-			this.gameStateManager.updateMe({ x: this.player.p.x, y: this.player.p.y });
+			this.gameStateManager.updateMe({
+				x: this.player.p.x,
+				y: this.player.p.y,
+				direction: this.player.direction,
+			});
 		}
 	}
 
@@ -121,7 +126,12 @@ export const SceneFactory = (room, username) => class Scene extends Phaser.Scene
 		if (ds.x === 0 && ds.y === 0) {
 			return;
 		}
+		if (this.shiftKey.isDown) {
+			this.player.move(ds, true);
+			return;
+		}
 		if (!this.isValidDestination(this.player.p.x + ds.x, this.player.p.y + ds.y)) {
+			this.player.move(ds, true);
 			return;
 		}
 		this.player.move(ds);
@@ -156,8 +166,7 @@ export const SceneFactory = (room, username) => class Scene extends Phaser.Scene
 	}
 
 	deltaS(keys) {
-		const key = Object.entries(keys)
-			.find(e => this.keys[e[0]].isDown);
+		const key = Object.entries(keys).find(e => this.keys[e[0]].isDown);
 		return key ? key[1] : 0;
 	}
 };

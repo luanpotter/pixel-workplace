@@ -14,6 +14,7 @@ export class Player {
 		this.walkClock = 0.0;
 		this.bubbleClock = 0.0;
 		this.frameOffset = 3 * playerSkin;
+		this.direction = 0;
 
 		this.sprite = this.scene.add.sprite(this.realX, this.realY, 'avatars');
 		this.sprite.displayWidth = DEST_TILE_SIZE;
@@ -71,7 +72,6 @@ export class Player {
 	update(dt) {
 		if (this.dest != null) {
 			this.walkClock += dt;
-			this.updateDirection();
 			if (this.walkClock >= WALK_TIME) {
 				this.p.x = this.dest.x;
 				this.p.y = this.dest.y;
@@ -120,28 +120,42 @@ export class Player {
 		this.sprite.setCrop(0, 0, SRC_TILE_SIZE, Math.round(scale * SRC_TILE_SIZE));
 	}
 
-	updateDirection() {
-		if (this.dest == null) {
+	move({ x, y }, onlyLook = false) {
+		if (x === 0 && y === 0) {
 			return;
 		}
-		if (this.dest.x > this.p.x) {
-			this.sprite.setFrame(this.frameOffset + 1);
-			this.sprite.flipX = true;
-		} else if (this.dest.x < this.p.x) {
-			this.sprite.setFrame(this.frameOffset + 1);
-			this.sprite.flipX = false;
-		} else if (this.dest.y > this.p.y) {
-			this.sprite.setFrame(this.frameOffset + 0);
-			this.sprite.flipX = false;
-		} else if (this.dest.y < this.p.y) {
-			this.sprite.setFrame(this.frameOffset + 2);
-			this.sprite.flipX = false;
+		this.lookAt(x, y);
+		if (!onlyLook && this.walkClock === 0.0) {
+			this.dest = { x: this.p.x + x, y: this.p.y + y };
 		}
 	}
 
-	move({ x, y }) {
-		if (this.walkClock === 0.0 && (x !== 0 || y !== 0)) {
-			this.dest = { x: this.p.x + x, y: this.p.y + y };
+	lookAt(x, y) {
+		if (x > 0) {
+			this.direction = 0;
+		} else if (x < 0) {
+			this.direction = 1;
+		} else if (y > 0) {
+			this.direction = 2;
+		} else if (y < 0) {
+			this.direction = 3;
+		}
+		this.updateDirection();
+	}
+
+	updateDirection() {
+		if (this.direction === 0) {
+			this.sprite.setFrame(this.frameOffset + 1);
+			this.sprite.flipX = true;
+		} else if (this.direction === 1) {
+			this.sprite.setFrame(this.frameOffset + 1);
+			this.sprite.flipX = false;
+		} else if (this.direction === 2) {
+			this.sprite.setFrame(this.frameOffset + 0);
+			this.sprite.flipX = false;
+		} else if (this.direction === 3) {
+			this.sprite.setFrame(this.frameOffset + 2);
+			this.sprite.flipX = false;
 		}
 	}
 
