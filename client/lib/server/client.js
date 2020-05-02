@@ -1,5 +1,6 @@
 import { Client } from 'colyseus.js';
 import { Player } from '../player.js';
+import { deepEquals } from '../utils.js';
 
 const DEFAULT_OFFICE_NAME = 'workspace';
 const server = process.env.SERVER_URL;
@@ -28,12 +29,18 @@ class ExternalPayers {
 		});
 	}
 
-	change(id, { x: oldX, y: oldY }) {
+	change(id, movement) {
 		const player = this.players.get(id);
-		const x = oldX - player.p.x;
-		const y = oldY - player.p.y;
+		const x = movement.x - player.p.x;
+		const y = movement.y - player.p.y;
 
+		if (player.lastUpdatedAt > movement.lastUpdatedAt) {
+			return;
+		}
+		player.lastUpdatedAt = movement.lastUpdatedAt;
 		player.move({ x, y });
+		player.direction = movement.direction;
+		player.updateDirection();
 	}
 
 	remove(id) {
@@ -87,10 +94,11 @@ export class GameStateManager {
 		});
 	}
 
-	updateMe(coords) {
-		if (this.coords && (this.coords.x === coords.x && this.coords.y === coords.y)) return;
-		this.coords = coords;
-		this.room.send('move', coords);
+	updateMe(movement) {
+		if (deepEquals(this.movement, movement)) return;
+		this.movement = movement;
+		this.lastUpdatedAt = Date.now();
+		this.room.send('move', { ...movement, lastUpdatedAt: this.lastUpdatedAt });
 	}
 
 	sendMessage(message) {

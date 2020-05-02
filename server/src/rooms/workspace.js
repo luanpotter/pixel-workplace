@@ -19,7 +19,7 @@ class State extends Schema {
   }
 
   createPlayer(id, { username, x, y }) {
-    this.players[id] = new Player(username, x, y)
+    this.players[id] = new Player(username, x, y, 0, -1)
   }
 
   removePlayer(id) {
@@ -27,8 +27,13 @@ class State extends Schema {
   }
 
   movePlayer(id, movement) {
-    if (movement.x) { this.players[id].x = movement.x }
-    if (movement.y) { this.players[id].y = movement.y }
+    const player = this.players[id]
+    if (movement.lastUpdatedAt < player.lastUpdatedAt) {
+      return
+    }
+    player.x = movement.x
+    player.y = movement.y
+    player.direction = movement.direction
   }
 }
 
