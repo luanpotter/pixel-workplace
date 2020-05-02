@@ -9,11 +9,12 @@ export class Player {
 	constructor(scene, username, x, y, playerSkin) {
 		this.scene = scene;
 		this.username = username;
+		this.frameOffset = 3 * playerSkin;
+
 		this.p = { x, y };
 		this.dest = null;
 		this.walkClock = 0.0;
 		this.bubbleClock = 0.0;
-		this.frameOffset = 3 * playerSkin;
 		this.direction = 0;
 
 		this.sprite = this.scene.add.sprite(this.realX, this.realY, 'avatars');

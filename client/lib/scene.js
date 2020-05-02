@@ -5,10 +5,15 @@ import { SRC_TILE_SIZE, DEST_TILE_SIZE } from './constants.js';
 import Tileset from '../assets/resources/tileset/tileset-extruded.png';
 import Avatars from '../assets/resources/avatars/avatars.png';
 import HallRoom from '../assets/resources/rooms/hall.json';
+import Jukebox from '../assets/resources/objects/jukebox.png';
 
 import { Player } from './player.js';
 import { GameStateManager } from './server/client.js';
 import { Bubbles } from './bubbles.js';
+
+const OBJECT_MAP = {
+	JUKEBOX: 'obj-jukebox',
+};
 
 export const SceneFactory = (room, username, skin) => class Scene extends Phaser.Scene {
 	constructor() {
@@ -22,7 +27,11 @@ export const SceneFactory = (room, username, skin) => class Scene extends Phaser
 		this.load.tilemapTiledJSON('hall-map', HallRoom);
 		this.load.json('hall-map-json', HallRoom);
 
-		this.load.spritesheet('avatars', Avatars, { frameWidth: SRC_TILE_SIZE, frameHeight: SRC_TILE_SIZE });
+		const tileSize = { frameWidth: SRC_TILE_SIZE, frameHeight: SRC_TILE_SIZE };
+		this.load.spritesheet('avatars', Avatars, tileSize);
+
+		// objects
+		this.load.spritesheet(OBJECT_MAP.JUKEBOX, Jukebox, tileSize);
 	}
 
 	create() {
@@ -41,6 +50,16 @@ export const SceneFactory = (room, username, skin) => class Scene extends Phaser
 
 		const objects = this.parseObjectsFromTiled();
 		this.walkAreas = objects.filter(e => e.type === 'WALK_AREA');
+		this.objects = objects
+			.filter(e => Object.keys(OBJECT_MAP).includes(e.type))
+			.map(e => {
+				const sprite = this.add.sprite(e.x, e.y, OBJECT_MAP[e.type], 0);
+				sprite.x += DEST_TILE_SIZE / 2;
+				sprite.y += DEST_TILE_SIZE / 2;
+				sprite.displayWidth = DEST_TILE_SIZE;
+				sprite.displayHeight = DEST_TILE_SIZE;
+				return { ...e, sprite };
+			});
 
 		// TODO grab this from the map json
 		this.spawnPoint = {
