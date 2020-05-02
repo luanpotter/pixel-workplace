@@ -19,7 +19,8 @@ export class Player {
 		this.sprite = this.scene.add.sprite(this.realX, this.realY, 'avatars');
 		this.sprite.displayWidth = DEST_TILE_SIZE;
 		this.sprite.displayHeight = DEST_TILE_SIZE;
-		this.sprite.setFrame(this.frameOffset);
+
+		this.updateDirection();
 
 		this.speak(`Welcome to Pixel, ${this.username}!`);
 	}

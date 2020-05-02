@@ -2,9 +2,10 @@ const schema = require('@colyseus/schema')
 const { Schema } = schema
 
 class Player extends Schema {
-  constructor(username, x, y, direction, lastUpdatedAt) {
-    super(username, x, y, direction, lastUpdatedAt)
+  constructor(username, skin, x, y, direction, lastUpdatedAt) {
+    super(username, skin, x, y, direction, lastUpdatedAt)
     this.username = username
+    this.skin = skin
     this.x = x
     this.y = y
     this.direction = direction
@@ -14,6 +15,7 @@ class Player extends Schema {
 
 schema.defineTypes(Player, {
   username: 'string',
+  skin: 'number',
   x: 'number',
   y: 'number',
   direction: 'number',
