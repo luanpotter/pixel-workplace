@@ -80,13 +80,13 @@
                         }, 
                         {
                          "name":"DESTINATION_ROOM_ID",
-                         "type":"string",
-                         "value":"2"
+                         "type":"int",
+                         "value":2
                         }, 
                         {
-                         "name":"ROOM_ID",
-                         "type":"string",
-                         "value":"1"
+                         "name":"GATE_ID",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"ROOM_GATE",
