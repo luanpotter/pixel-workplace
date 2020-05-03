@@ -132,6 +132,74 @@
                  "width":16,
                  "x":48,
                  "y":-16
+                }, 
+                {
+                 "height":0,
+                 "id":10,
+                 "name":"SPAWN_POINT",
+                 "point":true,
+                 "rotation":0,
+                 "type":"SPAWN_POINT",
+                 "visible":true,
+                 "width":0,
+                 "x":-144,
+                 "y":-16
+                }, 
+                {
+                 "height":0,
+                 "id":11,
+                 "name":"ROOM_GATE",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"DESTINATION",
+                         "type":"string",
+                         "value":"room-1"
+                        }, 
+                        {
+                         "name":"DESTINATION_ROOM_ID",
+                         "type":"string",
+                         "value":"1"
+                        }, 
+                        {
+                         "name":"ROOM_ID",
+                         "type":"string",
+                         "value":"1"
+                        }],
+                 "rotation":0,
+                 "type":"ROOM_GATE",
+                 "visible":true,
+                 "width":0,
+                 "x":-160,
+                 "y":0
+                }, 
+                {
+                 "height":0,
+                 "id":12,
+                 "name":"ROOM_GATE",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"DESTINATION",
+                         "type":"string",
+                         "value":"room-2"
+                        }, 
+                        {
+                         "name":"DESTINATION_ROOM_ID",
+                         "type":"string",
+                         "value":"1"
+                        }, 
+                        {
+                         "name":"ROOM_ID",
+                         "type":"string",
+                         "value":"2"
+                        }],
+                 "rotation":0,
+                 "type":"ROOM_GATE",
+                 "visible":true,
+                 "width":0,
+                 "x":96,
+                 "y":16
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -140,7 +208,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":10,
+ "nextobjectid":13,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.3.4",
