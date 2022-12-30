@@ -21,7 +21,7 @@
   "homepage": "https://github.com/luanpotter/pixel-workplace#readme",
   "dependencies": {
     "@colyseus/schema": "^0.5.37",
-    "colyseus": "^0.13.0",
+    "colyseus": "^0.14.24",
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
   },
